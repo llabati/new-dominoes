@@ -192,6 +192,59 @@ export default {
             this.tour = 1
             return this.$store.state.player.hand
         },
+        
+        whoBegins: function(){
+            if (this.tour = 0) {
+                let machineMax = 0
+                
+    // y a t il des doubles => filtrer le tableau et prendre le double le plus haut
+    //si pas de double, prendre le "total" le plus élevé
+    let first = [ { id: 0, value: [ 6, 6 ] }, { id: 1, value: [ 6, 4 ] }, { id: 2, value: [ 3, 2 ] } ]
+    let sec = [ { id: 0, value: [ 2, 0 ] }, { id: 1, value: [ 5, 5 ] }, { id: 2, value: [ 6, 5 ] } ]
+    
+    
+    for (let dom of first) {
+        dom.total = dom.value[0] + dom.value[1]
+        dom.double = dom.value[0] == dom.value[1] ? true : false
+    }
+    let doubles = first.filter(d => d.double)
+    doubles.sort( (a,b) => b.total - a.total)
+    let topA = doubles.length ? doubles[0] : first.sort ( (a,b) => b.total - a.total)[0]
+    console.log('TOP', topA)
+
+    for (let dom of sec) {
+        dom.total = dom.value[0] + dom.value[1]
+        dom.double = dom.value[0] == dom.value[1] ? true : false
+    }
+
+    doubles = sec.filter(d => d.double)
+    doubles.sort( (a,b) => b.total - a.total)
+    let topB = doubles.length ? doubles[0] : sec.sort ( (a,b) => b.total - a.total)[0]
+      console.log('TOP', topB)
+
+      if (topA.double && topB.double) {
+          let whoBegins = topA.value[0] + topA.value[1] > topB.value[0] + topB.value[1] ? topA : topB
+          console.log('WHO BEGINS', whoBegins)
+
+      }
+      if (topA.double && !topB.double) {
+          let whoBegins = topA
+          console.log('WHO BEGINS', whoBegins)
+
+      }
+      if (!topA.double && topB.double) {
+        let whoBegins = topB
+        console.log('WHO BEGINS', whoBegins)
+
+        }
+    if (!topA.double && !topB.double) {
+        let whoBegins = topA.value[0] + topA.value[1] > topB.value[0] + topB.value[1] ? topA : topB
+        console.log('WHO BEGINS', whoBegins)
+    }
+
+
+            else {
+            }
 
         playerPlays(domino, side){
             console.log('BEFORE CALCUL', this.$store.state.board)
