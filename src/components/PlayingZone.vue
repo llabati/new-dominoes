@@ -199,51 +199,53 @@ export default {
                 
     // y a t il des doubles => filtrer le tableau et prendre le double le plus haut
     //si pas de double, prendre le "total" le plus élevé
-    let first = [ { id: 0, value: [ 6, 6 ] }, { id: 1, value: [ 6, 4 ] }, { id: 2, value: [ 3, 2 ] } ]
-    let sec = [ { id: 0, value: [ 2, 0 ] }, { id: 1, value: [ 5, 5 ] }, { id: 2, value: [ 6, 5 ] } ]
     
     
-    for (let dom of first) {
+    for (let dom of this.machineHand) {
         dom.total = dom.value[0] + dom.value[1]
         dom.double = dom.value[0] == dom.value[1] ? true : false
     }
-    let doubles = first.filter(d => d.double)
-    doubles.sort( (a,b) => b.total - a.total)
-    let topA = doubles.length ? doubles[0] : first.sort ( (a,b) => b.total - a.total)[0]
-    console.log('TOP', topA)
+    let doublesM = this.machineHand.filter(d => d.double)
+    doublesM.sort( (a,b) => b.total - a.total)
+    let machineFirst = doublesM.length ? doublesM[0] : this.machineHand.sort ( (a,b) => b.total - a.total)[0]
+    console.log('TOP', machineFirst)
 
-    for (let dom of sec) {
+    for (let dom of this.playerHand) {
         dom.total = dom.value[0] + dom.value[1]
         dom.double = dom.value[0] == dom.value[1] ? true : false
     }
 
-    doubles = sec.filter(d => d.double)
-    doubles.sort( (a,b) => b.total - a.total)
-    let topB = doubles.length ? doubles[0] : sec.sort ( (a,b) => b.total - a.total)[0]
-      console.log('TOP', topB)
+    let doublesP = this.playerHand.filter(d => d.double)
+    doublesP.sort( (a,b) => b.total - a.total)
+    let playerFirst = doublesP.length ? doublesP[0] : this.playerHand.sort ( (a,b) => b.total - a.total)[0]
+      console.log('TOP', playerFirst)
 
-      if (topA.double && topB.double) {
-          let whoBegins = topA.value[0] + topA.value[1] > topB.value[0] + topB.value[1] ? topA : topB
+      if (doublesM.length && doublesP.length) {
+          let whoBegins = machineFirst.value[0] + machineFirst.value[1] > playerFirst.value[0] + playerFirst.value[1] ? machineFirst : playerFirst
           console.log('WHO BEGINS', whoBegins)
 
       }
-      if (topA.double && !topB.double) {
-          let whoBegins = topA
+      if (doublesM.length && !doublesP.length) {
+          let whoBegins = machineFirst
           console.log('WHO BEGINS', whoBegins)
 
       }
-      if (!topA.double && topB.double) {
-        let whoBegins = topB
+      if (!doublesM.length && doublesP.length) {
+        let whoBegins = playerFirst
         console.log('WHO BEGINS', whoBegins)
 
         }
-    if (!topA.double && !topB.double) {
-        let whoBegins = topA.value[0] + topA.value[1] > topB.value[0] + topB.value[1] ? topA : topB
+    if (!doublesM.length && !doublesP.length) {
+        let whoBegins = machineFirst.value[0] + machineFirst.value[1] > playerFirst.value[0] + playerFirst.value[1] ? machineFirst : playerFirst
         console.log('WHO BEGINS', whoBegins)
     }
 
 
             else {
+                if (this.playerWins) {
+                }
+                else {
+                }
             }
 
         playerPlays(domino, side){
