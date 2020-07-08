@@ -22,6 +22,8 @@
             <transition name="end"><button v-if="stopDrawing" class="btn-play" style="background-color: yellow; color: black;" ref="pass" @click="pass=!pass">Passez</button></transition>
         </div>
         <services></services>
+        
+        <display-progression />
 
     </div>
 </template>
@@ -29,6 +31,7 @@
 <script>
 import { Store } from '../store/index'
 import HalfDomino from './HalfDomino.vue'
+import displayProgression from './DisplayProgression.vue'
 import Services from './Services.vue'
 import calculations from '../services/calculations.js'
 import _ from 'lodash'
